@@ -1,13 +1,20 @@
 package library.yurishi.com.yslibrary.activitys.a3_AlarmManager;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.OnItemSelected;
 import library.yurishi.com.yslibrary.Bases.BaseActivity;
@@ -16,9 +23,8 @@ import library.yurishi.com.yslibrary.YurishiModel;
 
 public class Activity_A3_Main extends BaseActivity {
 
-    private Toolbar tb_title;
+    public final static String INTENT_ALARM_FLAG = "YurishiIntentAlarm";
     private AppCompatSpinner s_spinner;
-
 
     @Override
     protected int getContentLayout() {
@@ -32,7 +38,7 @@ public class Activity_A3_Main extends BaseActivity {
 
     @Override
     protected void initView() {
-        tb_title = findViewById(R.id.tb_title);
+        Toolbar tb_title = findViewById(R.id.tb_title);
         s_spinner = findViewById(R.id.s_sp);
 
         tb_title.setNavigationOnClickListener(new View.OnClickListener() {
@@ -56,6 +62,21 @@ public class Activity_A3_Main extends BaseActivity {
                 OnSpinnerItemClickListener(i);
             }
         });
+
+        am = (AlarmManager) getSystemService(ALARM_SERVICE);
+    }
+
+
+    private AlarmManager am;
+
+    /**
+     * 初始化Alarm管理器
+     */
+    private void setAlarm(int second) {
+        Intent intent = new Intent(INTENT_ALARM_FLAG);
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, intent, 0);
+        long intervalMillis = second * 1000;//秒数
+        am.set(AlarmManager.RTC_WAKEUP, intervalMillis, pi);
     }
 
     /**
@@ -82,7 +103,9 @@ public class Activity_A3_Main extends BaseActivity {
         YurishiModel.A3Model_One data = (YurishiModel.A3Model_One) s_spinner.getItemAtPosition(position);
 
         showMsgShort(data.title);
+        setAlarm(data.index);
     }
+
 
     private List<YurishiModel.A3Model_One> getSpinnerData() {
         List<YurishiModel.A3Model_One> dataList = new ArrayList<>();
@@ -104,4 +127,20 @@ public class Activity_A3_Main extends BaseActivity {
             showMsgLong("The List is Null,Plz check the code");
         }
     }
+
+
+    /**
+     * 闹钟广播接收器
+     */
+    public class AlarmReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Objects.equals(intent.getAction(), INTENT_ALARM_FLAG)) {
+                Toast.makeText(context, "主人主人,来电话啦", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
 }

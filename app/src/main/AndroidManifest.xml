@@ -38,6 +38,13 @@
         <activity
             android:name=".activitys.a3_AlarmManager.Activity_A3_Main"
             android:screenOrientation="portrait" />
+
+        <receiver android:name=".activitys.a3_AlarmManager.Activity_A3_Main$AlarmReceiver">
+            <intent-filter>
+                <action android:name="YurishiIntentAlarm"/>
+            </intent-filter>
+
+        </receiver>
     </application>
 
 </manifest>
