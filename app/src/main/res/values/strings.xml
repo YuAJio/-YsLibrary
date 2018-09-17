@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">何これ</string>
+    <string name="menu_a1_title">识别短信验证码并填充</string>
+    <string name="a3_text_1">请选择提醒的时间</string>
+</resources>

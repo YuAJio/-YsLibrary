@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="library.yurishi.com.yslibrary">
+
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <permission android:name="android.permission.get" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activitys.Activity_FlashScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/FlashStyle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activitys.Activity_MainHome"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activitys.a1_VerificationCodeFill.Activity_A1_Main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activitys.a2_OkHttpRequest.Activity_A2_Main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activitys.a3_AlarmManager.Activity_A3_Main"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>
